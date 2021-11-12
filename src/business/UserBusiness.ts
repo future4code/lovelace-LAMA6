@@ -42,7 +42,7 @@ export class UserBusiness {
         const createUser = new User (id, name, email, hashPassword, role)
         const newUser = this.userDataBase.createUser(createUser)
 
-        const token = this.authenticator.generate({id})
+        const token = this.authenticator.generate({id, role})
 
         return token
     }
@@ -75,7 +75,7 @@ export class UserBusiness {
             throw new Error ("Email ou senha inválidos.")
         }
 
-        const token = await this.authenticator.generate({id: user.getId()})
+        const token = await this.authenticator.generate({id: user.getId(), role: user.getRole()})
 
         return token
 
